@@ -54,8 +54,17 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null)
       }],
+      instanceNumber: 0,
       nextIsX: true,
     };
+  }
+
+  rollbackTo(inst_num){
+    this.setState({
+      history: this.state.history.slice(0, inst_num+1),
+      instanceNumber: inst_num,
+      nextIsX: (inst_num%2 == 0),
+    })
   }
 
   handleClick(idx){
@@ -71,13 +80,14 @@ class Game extends React.Component {
       history: history.concat([{
         squares: squares,
       }]),
+      instanceNumber: history.length,
       nextIsX: !this.state.nextIsX,
     });
   }
 
   render() {
     let history = this.state.history;
-    let board = history[history.length-1];
+    let board = history[this.state.instanceNumber];
     let winner = declareWinner(board.squares);
     let status;
     if(winner){
@@ -86,6 +96,17 @@ class Game extends React.Component {
     else{
       status = (this.state.nextIsX ? 'X' : 'O') + "'s turn";
     }
+
+    let instances = history.map((squares, idx) => {
+      const content = "Rollback to " + (idx ? "move #"+idx : "beginning");
+      return (
+        <li key={idx}>
+          <button onClick={() => this.rollbackTo(idx)}>
+            {content}
+          </button>
+        </li>
+      );
+    });
 
     return (
       <div className="game">
@@ -97,7 +118,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{instances}</ol>
         </div>
       </div>
     );
