@@ -24,6 +24,20 @@ class Board extends React.Component {
   }
 
   render() {
+    let content = [];
+    let self = this;
+    for(let i=0;i<3;i++){
+      let sub_content = [];
+      for(let j=0;j<3;j++){
+        sub_content.push(this.renderSquare((i*3)+j));
+      }
+      content.push(<div class="board-row">{sub_content}</div>);
+    }
+
+    return (
+      <div>{content}</div>
+    );
+
     return (
       <div>
         <div className="board-row">
@@ -96,7 +110,6 @@ class Game extends React.Component {
     else{
       status = (this.state.nextIsX ? 'X' : 'O') + "'s turn";
     }
-
     let instances = history.slice(0, history.length-1).map((squares, idx) => {
       const content = "Rollback to " + (idx ? "move #"+idx : "beginning");
       return (
