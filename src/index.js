@@ -97,7 +97,7 @@ class Game extends React.Component {
       status = (this.state.nextIsX ? 'X' : 'O') + "'s turn";
     }
 
-    let instances = history.map((squares, idx) => {
+    let instances = history.slice(0, history.length-1).map((squares, idx) => {
       const content = "Rollback to " + (idx ? "move #"+idx : "beginning");
       return (
         <li key={idx}>
