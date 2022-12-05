@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Square(props){
+function Square(props) {
   return (
     <button
       className="square"
       onClick={props.onClick}
     >
-        {props.value}
+      {props.value}
     </button>
   );
 }
 
 class Board extends React.Component {
-  renderSquare(idx){
+  renderSquare(idx) {
     return (
       <Square
         value={this.props.squares[idx]}
@@ -26,10 +26,10 @@ class Board extends React.Component {
   render() {
     let content = [];
     let self = this;
-    for(let i=0;i<3;i++){
+    for (let i = 0; i < 3; i++) {
       let sub_content = [];
-      for(let j=0;j<3;j++){
-        sub_content.push(this.renderSquare((i*3)+j));
+      for (let j = 0; j < 3; j++) {
+        sub_content.push(this.renderSquare((i * 3) + j));
       }
       content.push(<div class="board-row">{sub_content}</div>);
     }
@@ -38,31 +38,31 @@ class Board extends React.Component {
       <div>{content}</div>
     );
 
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+    // return (
+    //   <div>
+    //     <div className="board-row">
+    //       {this.renderSquare(0)}
+    //       {this.renderSquare(1)}
+    //       {this.renderSquare(2)}
+    //     </div>
+    //     <div className="board-row">
+    //       {this.renderSquare(3)}
+    //       {this.renderSquare(4)}
+    //       {this.renderSquare(5)}
+    //     </div>
+    //     <div className="board-row">
+    //       {this.renderSquare(6)}
+    //       {this.renderSquare(7)}
+    //       {this.renderSquare(8)}
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
 
 class Game extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       history: [{
@@ -73,20 +73,20 @@ class Game extends React.Component {
     };
   }
 
-  rollbackTo(inst_num){
+  rollbackTo(inst_num) {
     this.setState({
-      history: this.state.history.slice(0, inst_num+1),
+      history: this.state.history.slice(0, inst_num + 1),
       instanceNumber: inst_num,
-      nextIsX: (inst_num%2 == 0),
+      nextIsX: (inst_num % 2 == 0),
     })
   }
 
-  handleClick(idx){
+  handleClick(idx) {
     let history = this.state.history;
-    let board = history[history.length-1];
+    let board = history[history.length - 1];
     let squares = board.squares.slice();
 
-    if(squares[idx] || declareWinner(squares)){
+    if (squares[idx] || declareWinner(squares)) {
       return;
     }
     squares[idx] = this.state.nextIsX ? 'X' : 'O';
@@ -104,17 +104,17 @@ class Game extends React.Component {
     let board = history[this.state.instanceNumber];
     let winner = declareWinner(board.squares);
     let status;
-    if(winner){
+    if (winner) {
       status = winner + " Won!";
     }
-    else{
+    else {
       status = (this.state.nextIsX ? 'X' : 'O') + "'s turn";
     }
-    let instances = history.slice(0, history.length-1).map((squares, idx) => {
-      const content = "Rollback to " + (idx ? "move #"+idx : "beginning");
+    let instances = history.slice(0, history.length - 1).map((squares, idx) => {
+      const content = "Rollback to " + (idx ? "move #" + idx : "beginning");
       return (
-        <li key={idx}>
-          <button onClick={() => this.rollbackTo(idx)}>
+        <li class="rollback" key={idx}>
+          <button class="rollback" onClick={() => this.rollbackTo(idx)}>
             {content}
           </button>
         </li>
@@ -130,7 +130,7 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div class="status">{status}</div>
           <ol>{instances}</ol>
         </div>
       </div>

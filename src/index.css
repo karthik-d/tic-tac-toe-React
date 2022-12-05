@@ -3,7 +3,8 @@ body {
   margin: 20px;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 30px;
 }
 
@@ -24,28 +25,54 @@ ol, ul {
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 80px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 80px;
+  border-radius: 6px;
 }
 
 .square:focus {
-  outline: none;
+  outline: invert;
+  background: #999;
 }
 
 .kbd-navigation .square:focus {
   background: #ddd;
 }
 
+
+.rollback {
+  list-style-type: none;
+  border: none;
+  padding: 1px;
+  font-size: 12px;
+  margin: 8px;
+  background-color: rgb(62, 143, 62);
+  color: white;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
 .game {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-top: 40px;
+  width: 100%;
 }
 
+.status {
+  font-weight: bold;
+  color: rgba(16, 16, 189, 0.726);
+  text-align: center;
+  width: 100%;
+}
