@@ -1,4 +1,4 @@
-### Tic-Tac-Toe with React.js
+### Tic-Tac-Toe using React.js
 
 A single page app for the Tic-Tac-Toe game using React.js with rollbacks to previous moves.
 
